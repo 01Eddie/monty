@@ -1,8 +1,6 @@
 #include "monty.h"
-
 /* global struct to hold flag for queue and stack length */
 var_t var;
-
 /**
  * main - Monty bytecode interpreter
  * @argc: number of arguments passed

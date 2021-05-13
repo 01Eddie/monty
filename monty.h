@@ -25,6 +25,8 @@ typedef struct var_s
 #define QUEUE 1
 
 /* global struct to hold flag for queue and stack length */
+/* global struct to hold flag for queue and stack length */
+/* var_t var; */
 extern var_t var;
 
 /**
