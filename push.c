@@ -1,3 +1,4 @@
+#include "header.h"
 /* algoritmo pilas_con_punteros:
 tipo puntero_a: punt
 registro: tipo_elemnto
@@ -41,14 +42,14 @@ auxi -> cima <- cima
 cima <- auxi
 fin_procedimiento */
 
-int isFull(struct Stack* stack)
+/* int isFull(stack_t **stack)
 {
     return stack->top == stack->capacity - 1;
 }
 int isEmpty(stack_t **stack)
 {
     return stack->top == -1;
-}
+} */
 void push(stack_t **stack, unsigned int line_number)
 {
     stack_t *new_P = NULL;
@@ -71,12 +72,19 @@ void push(stack_t **stack, unsigned int line_number)
             exit(EXIT_FAILURE);
         }
     }
-
     new = malloc(sizeof(stack_t));
     if (new == NULL)
     {
         printf("L%u: usage: push integer", line_number);
         exit(EXIT_FAILURE);        
     }
-    atoi(n)
+    new->n = atoi(n)
+    new->prev = NULL;
+    new->next = NULL;
+    if (*stack != NULL)
+    {
+        new->next = *stack;
+        (*stack)->prev = new;
+    }
+    *stack = new;
 }
