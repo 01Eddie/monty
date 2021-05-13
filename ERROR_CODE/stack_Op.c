@@ -1,5 +1,5 @@
-#include "header.h"
-
+/* #include "header.h"
+ */
 // Stack Operations
 stack_t createStack(unsigned capacity)
 {

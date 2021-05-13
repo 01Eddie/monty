@@ -1,4 +1,5 @@
 #include "header.h"
+static int valid_digit(char *arg);
 /* algoritmo pilas_con_punteros:
 tipo puntero_a: punt
 registro: tipo_elemnto
@@ -50,21 +51,59 @@ int isEmpty(stack_t **stack)
 {
     return stack->top == -1;
 } */
-void push(stack_t **stack, unsigned int line_number)
+
+
+
+/**
+ * push - push an integer into the stack
+ * @stack: double pointer to the beginning of the stack
+ * @line_number: script line number
+ * Return: void
+ */
+
+void push1(stack_t **stack, unsigned int line_number)
 {
-    stack_t *new_P = NULL;
-    int i;
-    char *n;
-    if (n == NULL)
+    int n;
+    char *arg;
+
+    arg = strtok(NULL, "\n\t\r ");
+    if (arg == NULL || check_for_digit(arg))
     {
         printf("L%u: usage: push integer", line_number);
         exit(EXIT_FAILURE);
     }
-    if (n[0] == '-' && i == 0)
-        continue;
-    //*stack->array[++stack->top] = element;
+    n = atoi(arg);
+    //Here verified about of add node evaluatting the memory with malloc
+    if (!add_node(stack, n))
+    {
+        printf("ERROR: malloc failed\n");
+        exit(EXIT_FAILURE);
+    }
+    //Save the variable
+    var.stack_len++;
+}
+/**
+ * check_for_digit - checks that a string only contains digits
+ * @arg: string to check
+ * Return: 0 if only digits, else 1
+ */
+
+static int valid_digit(char *arg)
+{
+    int i;
+
+    for (i = 0; arg[i]; i++)
+    {
+        if (arg[i] == '-' && i == 0)
+            continue;
+        if (isdigit(arg[i]) == 0)
+            return (1);
+    }
+    return (0);
+}
+//*stack->array[++stack->top] = element;
     //RECORRIDO SI ES NUMERO ENTERO y tmb diferente de nulo, aca hacemos la validacion 
-    for (i = 0; n[i] != '\0'; i++)
+   /*  for (i = 0; n[i] != '\0'; i++)
     {
         if (isdigit(n[i] == 0))
         {
@@ -86,5 +125,4 @@ void push(stack_t **stack, unsigned int line_number)
         new->next = *stack;
         (*stack)->prev = new;
     }
-    *stack = new;
-}
+    *stack = new; */
