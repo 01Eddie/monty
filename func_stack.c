@@ -1,12 +1,12 @@
 #include "monty.h"
 
 /**
- * check_for_digit - checks that a string only contains digits
+ * valid_digit - checks that a string only contains digits
  * @arg: string to check
  *
  * Return: 0 if only digits, else 1
  */
-static int check_for_digit(char *arg)
+int valid_digit(char *arg)
 {
 	int i;
 
@@ -15,7 +15,9 @@ static int check_for_digit(char *arg)
 		if (arg[i] == '-' && i == 0)
 			continue;
 		if (isdigit(arg[i]) == 0)
+		{
 			return (1);
+		}
 	}
 	return (0);
 }
@@ -33,13 +35,22 @@ void push(stack_t **stack, unsigned int line_number)
 	int n;
 
 	arg = strtok(NULL, "\n\t\r ");
-	if (arg == NULL || check_for_digit(arg))
+	if (arg == NULL)
 	{
-		dprintf(STDOUT_FILENO,
-			"L%u: usage: push integer\n",
-			line_number);
+		dprintf(STDOUT_FILENO, "L%u: usage: push integer\n", line_number);
 		exit(EXIT_FAILURE);
 	}
+	for (n = 0; arg[n]; n++)
+	{
+		if (arg[0] == '-' && n == 0)
+			continue;
+		if (isdigit(arg[n]) == 0)
+		{
+			dprintf(STDOUT_FILENO, "L%u: usage: push integer\n", line_number);
+			exit(EXIT_FAILURE);
+		}
+	}
+
 	n = atoi(arg);
 	if (!add_node(stack, n))
 	{
@@ -62,9 +73,7 @@ void pop(stack_t **stack, unsigned int line_number)
 
 	if (var.stack_len == 0)
 	{
-		dprintf(STDOUT_FILENO,
-			"L%u: can't pop an empty stack\n",
-			line_number);
+		dprintf(STDOUT_FILENO, "L%u: can't pop an empty stack\n", line_number);
 		exit(EXIT_FAILURE);
 	}
 	(*stack)->next->prev = (*stack)->prev;
@@ -90,9 +99,7 @@ void swap(stack_t **stack, unsigned int line_number)
 
 	if (var.stack_len < 2)
 	{
-		dprintf(STDOUT_FILENO,
-			"L%u: can't swap, stack too short\n",
-			line_number);
+		dprintf(STDOUT_FILENO, "L%u: can't swap, stack too short\n", line_number);
 		exit(EXIT_FAILURE);
 	}
 	if (var.stack_len == 2)
